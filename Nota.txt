@@ -1,1 +1,4 @@
 El ejecutable esta dentro e Figuras/dist/
+
+
+en formualrioImagenes.rar es la version con imagenes solo funciona si las imagenes esta en la misma ruta que el ejecutable, la version una que se encuentra en Figuras.rar(el cual no tiene imagenes) corre normal

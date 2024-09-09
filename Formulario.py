@@ -1,5 +1,6 @@
-import tkinter as tk  # tkinter nos sirve para crear interfaces gráficas, equivalente a System.Windows.Forms de C#
-from tkinter import messagebox  # Esto nos sirve para mostrar un cuadro de diálogo, que usaremos para mostrar errores
+import tkinter as tk  # tkinter para crear interfaces gráficas
+from tkinter import messagebox  # Mostrar un cuadro de diálogo de error
+from PIL import Image, ImageTk  # Importar Pillow para cargar imágenes JPEG
 
 # Aquí importamos todas las figuras
 from Rectangulo import Rectangulo
@@ -48,14 +49,34 @@ def calcular():
 ventana_principal = tk.Tk()
 ventana_principal.title("Calculadora de Figuras")
 
+# Cargar imágenes para cada figura usando Pillow
+img_rectangulo = ImageTk.PhotoImage(Image.open("Rectangulo.jpeg"))
+img_circulo = ImageTk.PhotoImage(Image.open("Circulo.jpeg"))
+img_triangulo = ImageTk.PhotoImage(Image.open("Triangulo.jpeg"))
+img_cuadrado = ImageTk.PhotoImage(Image.open("Cuadrado.jpeg"))
+
 # Selector de figura
 label_seleccion_figura = tk.Label(ventana_principal, text="Selecciona la figura:")
 label_seleccion_figura.grid(row=0, column=0)
 
-tipo_figura = tk.StringVar(value="Rectángulo") # por defecto la selecionada sera Rectangulo
-figuras = ["Rectángulo", "Círculo", "Triángulo", "Cuadrado"] # lass figuras disponibles
-for i, figura in enumerate(figuras): 
-    tk.Radiobutton(ventana_principal, text=figura, variable=tipo_figura, value=figura).grid(row=0, column=i+1) # para generar las opciones con respecto a la candtidad de tipos de figuras que hay en este caso 4
+tipo_figura = tk.StringVar(value="Rectángulo")  # por defecto la seleccionada será Rectángulo
+figuras = [
+    ("Rectángulo", img_rectangulo),
+    ("Círculo", img_circulo),
+    ("Triángulo", img_triangulo),
+    ("Cuadrado", img_cuadrado)
+]
+
+# Crear los botones con imágenes para cada figura
+for i, (figura, imagen) in enumerate(figuras):
+    tk.Radiobutton(
+        ventana_principal,
+        text=figura,
+        variable=tipo_figura,
+        value=figura,
+        image=imagen,  # Agregar la imagen
+        compound="left"  # Muestra la imagen a la izquierda del texto
+    ).grid(row=0, column=i + 1)
 
 # Crear etiquetas y campos de entrada para las distintas figuras
 label_base_o_lado = tk.Label(ventana_principal, text="Base / Lado:")
@@ -88,4 +109,4 @@ label_perimetro_resultado = tk.Label(ventana_principal, text="Perímetro: ")
 label_perimetro_resultado.grid(row=6, columnspan=2)
 
 # Iniciar el bucle principal de Tkinter
-ventana_principal.mainloop() # mainloop es como un while que mantiene corriendo el programa hazta que se cierre
+ventana_principal.mainloop()
