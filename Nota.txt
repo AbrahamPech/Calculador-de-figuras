@@ -1,0 +1,1 @@
+El ejecutable esta dentro e Figuras/dist/
